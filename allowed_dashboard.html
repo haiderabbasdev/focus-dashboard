@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Focus Dashboard</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #0d1117, #1b2330);
+        font-family: "Segoe UI", sans-serif;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        padding-top: 40px;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 680px;
+        background: rgba(255,255,255,0.06);
+        padding: 30px;
+        border-radius: 20px;
+        backdrop-filter: blur(14px);
+        box-shadow: 0 10px 55px rgba(0,0,0,0.4);
+        border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 10px;
+        color: #58a6ff;
+        font-size: 32px;
+        font-weight: 600;
+    }
+
+    #clock {
+        text-align: center;
+        font-size: 18px;
+        margin-bottom: 25px;
+        opacity: 0.9;
+    }
+
+    .links {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    a {
+        text-decoration: none;
+        padding: 14px 16px;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.07);
+        color: #dfe7f1;
+        font-size: 17px;
+        transition: 0.25s ease;
+        border: 1px solid rgba(255,255,255,0.10);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    a:hover {
+        background: rgba(88,166,255,0.18);
+        color: #fff;
+        transform: translateX(6px);
+        box-shadow: 0 0 12px rgba(88,166,255,0.5);
+    }
+
+    hr {
+        border: 1px solid rgba(255,255,255,0.12);
+        margin: 25px 0;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Focus Mode</h1>
+    <div id="clock"></div>
+
+    <div class="links">
+        <a href="https://www.youtube.com/@AshuGhai11th12th"><i class="fa-solid fa-book-open"></i>Ashu Ghai (11/12)</a>
+        <a href="https://scienceandfun.live/"><i class="fa-solid fa-flask"></i>Science & Fun</a>
+        <a href="https://www.youtube.com/@codeitup"><i class="fa-solid fa-code"></i>Code It Up</a>
+        <a href="https://www.youtube.com/@FarFromWeakFFW"><i class="fa-solid fa-dumbbell"></i>Far From Weak</a>
+        <a href="https://www.youtube.com/@Rewirs"><i class="fa-solid fa-brain"></i>Rewirs</a>
+        <a href="https://www.youtube.com/@scienceandfuneducation"><i class="fa-solid fa-atom"></i>Science & Fun Edu</a>
+        <a href="https://www.youtube.com/@SelfUpp"><i class="fa-solid fa-arrow-up"></i>Self Upp</a>
+        <a href="https://www.youtube.com/@DearSir"><i class="fa-solid fa-chalkboard"></i>Dear Sir</a>
+        <a href="https://www.youtube.com/@NCERTWallahClass12PW"><i class="fa-solid fa-book"></i>NCERT Wallah PW</a>
+        <a href="https://www.youtube.com/@AnabolicAliens"><i class="fa-solid fa-dumbbell"></i>Anabolic Aliens</a>
+        <a href="https://www.youtube.com/results?search_query=next+workout"><i class="fa-solid fa-play"></i>Next Workout</a>
+
+        <hr>
+
+        <a href="https://chat.openai.com"><i class="fa-solid fa-robot"></i>ChatGPT</a>
+        <a href="https://ncert.nic.in"><i class="fa-solid fa-book"></i>NCERT</a>
+        <a href="https://pw.live"><i class="fa-solid fa-school"></i>PW Live</a>
+    </div>
+</div>
+
+<script>
+    function updateClock() {
+        let now = new Date();
+        let time = now.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+        document.getElementById("clock").innerHTML = time;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+</script>
+
+</body>
+</html>
