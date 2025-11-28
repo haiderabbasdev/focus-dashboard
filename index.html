@@ -1,282 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Focus Dashboard — Final</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    :root{--bg1:#071025;--bg2:#0f1724;--card:#0f1728;--accent:#58a6ff;--muted:#93a3b0}
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:#e6eef6;display:flex;align-items:flex-start;justify-content:center;padding:28px}
-    .wrap{width:100%;max-width:1160px}
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
-    h1{margin:0;font-size:24px;color:var(--accent);letter-spacing:0.3px}
-    .meta{display:flex;gap:12px;align-items:center;color:var(--muted)}
-
-    .notice{background:linear-gradient(90deg, rgba(255,0,0,0.12), rgba(255,0,0,0.03));color:#ffd6d6;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,0,0,0.06);font-weight:700;margin-bottom:16px}
-
-    .grid{display:grid;grid-template-columns:1fr 380px;gap:18px}
-    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:14px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 40px rgba(0,0,0,0.6)}
-
-    .big-buttons{display:flex;gap:12px;margin-bottom:14px}
-    .btn{flex:1;padding:12px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#3aa0ff);color:#021127;font-weight:800;text-align:center;cursor:pointer;border:none;box-shadow:0 8px 24px rgba(58,160,255,0.08)}
-
-    .links-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-    .link{display:flex;gap:12px;align-items:center;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);text-decoration:none;color:inherit;border:1px solid rgba(255,255,255,0.02);transition:transform .18s ease, box-shadow .18s ease}
-    .link:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(0,0,0,0.5)}
-    .link i{width:36px;text-align:center;color:var(--accent);font-size:18px}
-
-    /* Pomodoro */
-    .timer{display:flex;flex-direction:column;align-items:center;gap:8px}
-    .time-display{font-size:44px;font-weight:800;letter-spacing:1px}
-    .timer-controls{display:flex;gap:8px}
-    .control{padding:8px 12px;border-radius:8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.02);cursor:pointer}
-
-    /* checklist */
-    .todo{display:flex;flex-direction:column;gap:8px}
-    .todo label{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;background:rgba(255,255,255,0.01)}
-
-    /* sticky goals */
-    .goals{margin-top:18px}
-    .sticky-container{display:flex;gap:14px;flex-wrap:wrap}
-    .sticky{width:210px;background:linear-gradient(180deg,#fff9d6,#fff2b0);padding:10px;border-radius:12px;box-shadow:0 12px 30px rgba(2,6,23,0.6);color:#111;position:relative;transform:translateY(0);transition:transform .18s ease}
-    .sticky:hover{transform:translateY(-6px)}
-    .sticky img{width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:8px}
-    .sticky .title{font-weight:800;margin-bottom:6px}
-    .sticky .note{font-size:13px;color:#333}
-    .edit-btn{position:absolute;top:8px;right:8px;background:transparent;border:none;cursor:pointer;font-size:14px}
-
-    /* idle overlay */
-    .idle-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.75);z-index:9999;color:#fff;padding:20px;display:none}
-    .idle-card{background:linear-gradient(180deg,#0b0f12,#071021);padding:26px;border-radius:12px;max-width:760px;text-align:center;border:1px solid rgba(255,255,255,0.03)}
-    .idle-card h2{margin:0 0 10px 0;color:#ff7b7b}
-    .idle-card p{margin:0 0 12px 0}
-    .insults{font-weight:800;color:#ffd6a6}
-
-    .small{font-size:13px;color:var(--muted)}
-
-    @media(max-width:920px){.grid{grid-template-columns:1fr}.meta{display:none}}
-
-    /* subtle animations */
-    @keyframes floaty {0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
-    .pulse{animation:floaty 5s ease-in-out infinite}
-  </style>
+<meta charset="UTF-8">
+<title>Focus Dashboard</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #0d1117, #1b2330);
+        font-family: "Segoe UI", sans-serif;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        padding-top: 40px;
+        overflow-x: hidden;
+    }
+    .container {
+        width: 90%;
+        max-width: 680px;
+        background: rgba(255,255,255,0.06);
+        padding: 30px;
+        border-radius: 20px;
+        backdrop-filter: blur(14px);
+        box-shadow: 0 10px 55px rgba(0,0,0,0.4);
+        border: 1px solid rgba(255,255,255,0.12);
+        animation: fade 0.8s ease;
+    }
+    @keyframes fade {
+        from {opacity:0; transform: translateY(20px);}
+        to {opacity:1; transform: translateY(0);}
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 10px;
+        color: #58a6ff;
+        font-size: 32px;
+        font-weight: 600;
+    }
+    #clock {
+        text-align: center;
+        font-size: 18px;
+        margin-bottom: 25px;
+        opacity: 0.9;
+    }
+    #countdown {
+        text-align: center;
+        font-size: 20px;
+        margin-bottom: 25px;
+        padding: 15px;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.12);
+    }
+    #pomodoro {
+        text-align: center;
+        margin-bottom: 25px;
+        padding: 20px;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.12);
+    }
+    #pomodoro button {
+        margin: 6px;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 8px;
+        background: #58a6ff;
+        color: #000;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.2s;
+    }
+    .links {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+    a {
+        text-decoration: none;
+        padding: 14px 16px;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.07);
+        color: #dfe7f1;
+        font-size: 17px;
+        transition: 0.25s ease;
+        border: 1px solid rgba(255,255,255,0.10);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    hr {
+        border: 1px solid rgba(255,255,255,0.12);
+        margin: 25px 0;
+    }
+    #addNoteBtn {
+        margin-top: 20px;
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        background: #58a6ff;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.25s ease;
+    }
+    .note {
+        position: absolute;
+        padding: 12px;
+        min-width: 140px;
+        min-height: 90px;
+        border-radius: 10px;
+        font-size: 15px;
+        resize: both;
+        overflow: auto;
+        background: yellow;
+        cursor: move;
+        z-index: 10;
+        /* ← YE 3 LINE ADD KI HAIN */
+        color: #000 !important;
+        font-weight: bold !important;
+        caret-color: #000;
+    }
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div>
-        <h1>📚 Focus Dashboard — Final</h1>
-        <div class="small">Personalized. Editable goals. Countdown. Pomodoro. Roast mode.</div>
-      </div>
-      <div class="meta">
-        <div id="date" class="small"></div>
-        <div id="clock" class="small"></div>
-      </div>
-    </header>
-
-    <div class="notice">This is your study-only dashboard. If you're not studying — close this tab.</div>
-
-    <div class="grid">
-      <div class="panel">
-
-        <div class="big-buttons">
-          <button class="btn" data-action="physics">Start Boards: Physics</button>
-          <button class="btn" data-action="chem">Start Boards: Chemistry</button>
-          <button class="btn" data-action="math">Start Boards: Math</button>
-        </div>
-
-        <section style="margin-bottom:12px">
-          <h3 style="margin:0 0 8px 0">Quick Study Links</h3>
-          <div class="links-grid" id="linksGrid">
-            <!-- links injected by JS -->
-          </div>
-        </section>
-
-        <section style="margin-bottom:12px">
-          <h3 style="margin:0 0 8px 0">Pomodoro Timer</h3>
-          <div class="timer">
-            <div class="time-display" id="timerDisplay">25:00</div>
-            <div class="small">Mode: <span id="timerMode">Work</span></div>
-            <div class="timer-controls">
-              <button class="control" id="startBtn">Start</button>
-              <button class="control" id="pauseBtn">Pause</button>
-              <button class="control" id="stopBtn">Stop</button>
-              <button class="control" id="skipBtn">Skip</button>
-            </div>
-            <div style="margin-top:8px" class="small">Auto-switches between 25/5 minutes. You get desktop notifications.</div>
-          </div>
-        </section>
-
-        <section>
-          <h3 style="margin:0 0 8px 0">Daily Checklist</h3>
-          <div class="todo" id="todoList"></div>
-          <div style="margin-top:8px;display:flex;gap:8px">
-            <input id="newTodo" placeholder="Add task (e.g. Physics 1 hr)" style="flex:1;padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:inherit">
-            <button class="control" id="addTodo">Add</button>
-          </div>
-          <div class="small" style="margin-top:8px">Checklist auto-resets daily at midnight.</div>
-        </section>
-
-        <section class="goals">
-          <h3 style="margin:0 0 8px 0">Goals (click image to replace, pencil to edit)</h3>
-          <div class="sticky-container" id="stickyContainer"></div>
-        </section>
-
-      </div>
-
-      <aside>
-        <div class="panel widget">
-          <h4 style="margin:0 0 8px 0">Notes / Goals</h4>
-          <textarea id="notes" placeholder="Today's target... (saved locally)"></textarea>
-          <div style="display:flex;gap:8px;margin-top:8px">
-            <button class="control" id="saveNotes">Save</button>
-            <button class="control" id="clearNotes">Clear</button>
-          </div>
-        </div>
-
-        <div class="panel widget">
-          <h4 style="margin:0 0 8px 0">Study Playlists</h4>
-          <div class="playlists" id="playlistsArea"></div>
-        </div>
-
-        <div class="panel widget">
-          <h4 style="margin:0 0 8px 0">Boards Countdown</h4>
-          <div id="countdown" style="font-size:18px;font-weight:800"></div>
-          <div class="small">Target date: <span id="targetDateDisplay">Mar 24, 2026</span></div>
-        </div>
-
-        <div class="panel widget">
-          <h4 style="margin:0 0 8px 0">Idle Roast Mode</h4>
-          <div class="small">When you idle for <span id="idleSecondsDisplay">90</span> seconds, the dashboard will roast you. Double-click the number to change.</div>
-          <div style="margin-top:8px" class="roast-toggle"><label><input type="checkbox" id="toggleRoast"> Enable Roast</label></div>
-          <div style="margin-top:10px"><button class="control" id="testRoast">Test Roast Now</button></div>
-        </div>
-
-        <div class="panel widget">
-          <h4 style="margin:0 0 8px 0">Recently opened (local)</h4>
-          <div id="recent" class="small"></div>
-        </div>
-      </aside>
+<div class="container">
+    <h1>Focus Mode</h1>
+    <div id="clock"></div>
+    <!-- COUNTDOWN -->
+    <div id="countdown">Loading countdown…</div>
+    <!-- Pomodoro -->
+    <div id="pomodoro">
+        <h3>Pomodoro Timer</h3>
+        <div id="pomoTime" style="font-size:28px; margin-bottom:10px;">25:00</div>
+        <button onclick="startPomodoro()">Start</button>
+        <button onclick="resetPomodoro()">Reset</button>
     </div>
-
-    <footer style="margin-top:16px;color:var(--muted);text-align:center">Made for focus — everything saved locally in your browser.</footer>
-  </div>
-
-  <div class="idle-overlay" id="idleOverlay">
-    <div class="idle-card">
-      <h2>Stop scrolling. Get to work.</h2>
-      <p class="insults" id="insultText">You want this? Then do it — not tomorrow, now.</p>
-      <div style="margin-top:12px"><button class="control" id="closeRoast">I'm back</button></div>
+    <!-- Quick Links -->
+    <div class="links">
+        <a href="https://www.youtube.com/@AshuGhai11th12th"><i class="fa-solid fa-book-open"></i>Ashu Ghai (11/12)</a>
+        <a href="https://scienceandfun.live/"><i class="fa-solid fa-flask"></i>Science & Fun</a>
+        <a href="https://www.youtube.com/@codeitup"><i class="fa-solid fa-code"></i>Code It Up</a>
+        <a href="https://www.youtube.com/@FarFromWeakFFW"><i class="fa-solid fa-dumbbell"></i>Far From Weak</a>
+        <a href="https://www.youtube.com/@Rewirs"><i class="fa-solid fa-brain"></i>Rewirs</a>
+        <a href="https://www.youtube.com/@scienceandfuneducation"><i class="fa-solid fa-atom"></i>Science & Fun Edu</a>
+        <a href="https://www.youtube.com/@SelfUpp"><i class="fa-solid fa-arrow-up"></i>Self Upp</a>
+        <a href="https://www.youtube.com/@DearSir"><i class="fa-solid fa-chalkboard"></i>Dear Sir</a>
+        <a href="https://www.youtube.com/@NCERTWallahClass12PW"><i class="fa-solid fa-book"></i>NCERT Wallah PW</a>
+        <a href="https://www.youtube.com/@AnabolicAliens"><i class="fa-solid fa-dumbbell"></i>Anabolic Aliens</a>
+        <a href="https://www.youtube.com/results?search_query=next+workout"><i class="fa-solid fa-play"></i>Next Workout</a>
+        <hr>
+        <a href="https://chat.openai.com"><i class="fa-solid fa-robot"></i>ChatGPT</a>
+        <a href="https://ncert.nic.in"><i class="fa-solid fa-book"></i>NCERT</a>
+        <a href="https://pw.live"><i class="fa-solid fa-school"></i>PW Live</a>
     </div>
-  </div>
-
-  <script>
-    // ---------- Clock & Date ----------
-    function updateClock(){ const now=new Date(); document.getElementById('clock').textContent = now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); document.getElementById('date').textContent = now.toLocaleDateString([], {weekday:'short', month:'short', day:'numeric'}); }
-    setInterval(updateClock,1000); updateClock();
-
-    // ---------- Links & Playlists (initial data) ----------
-    const LINKS = [
-      {title:'Ashu Ghai (11/12)', url:'https://www.youtube.com/@AshuGhai11th12th', icon:'fa-book-open'},
-      {title:'Science & Fun', url:'https://scienceandfun.live/', icon:'fa-flask'},
-      {title:'Code It Up', url:'https://www.youtube.com/@codeitup', icon:'fa-code'},
-      {title:'Far From Weak', url:'https://www.youtube.com/@FarFromWeakFFW', icon:'fa-dumbbell'},
-      {title:'Playlist 1', url:'https://www.youtube.com/playlist?list=PLjcFFdEpfDiVKUKSmePKM5R36KRiT_guB', icon:'fa-list'},
-      {title:'Playlist 2', url:'https://www.youtube.com/playlist?list=PLjcFFdEpfDiW3sSJ8IN7byNguxrX08XGz', icon:'fa-list'},
-      {title:'Next Workout', url:'https://www.youtube.com/results?search_query=next+workout', icon:'fa-play'}
-    ];
-
-    function renderLinks(){ const grid=document.getElementById('linksGrid'); grid.innerHTML=''; LINKS.forEach(l=>{ const a=document.createElement('a'); a.className='link'; a.href=l.url; a.target='_blank'; a.innerHTML = `<i class="fa-solid ${l.icon}"></i><div><div>${l.title}</div><small class="small">Open study</small></div>`; grid.appendChild(a); }); }
-    renderLinks();
-
-    function renderPlaylists(){ const el=document.getElementById('playlistsArea'); el.innerHTML=''; LINKS.filter(x=>x.icon==='fa-list' || x.icon==='fa-play' || x.url.includes('@')).forEach(l=>{ const a=document.createElement('a'); a.className='pl'; a.href=l.url; a.target='_blank'; a.style.display='block'; a.style.marginBottom='8px'; a.style.color='var(--accent)'; a.textContent = l.title; el.appendChild(a); }); }
-    renderPlaylists();
-
-    // Quick action buttons
-    const quickMap = { 'physics': 'https://www.youtube.com/playlist?list=PLjcFFdEpfDiVKUKSmePKM5R36KRiT_guB', 'chem': 'https://www.youtube.com/playlist?list=PLjcFFdEpfDiW3sSJ8IN7byNguxrX08XGz', 'math': 'https://www.youtube.com/@AshuGhai11th12th' };
-    document.querySelectorAll('.btn').forEach(b=>b.addEventListener('click', ()=>{ const link = quickMap[b.dataset.action]; if(link){ window.open(link,'_blank'); addRecent(link); }}));
-
-    // ---------- Recent links ----------
-    function addRecent(url){ try{ const list=JSON.parse(localStorage.getItem('focus_recent')||'[]'); list.unshift({url:url,t:Date.now()}); const uniq = Array.from(new Map(list.map(i=>[i.url,i])).values()).slice(0,6); localStorage.setItem('focus_recent', JSON.stringify(uniq)); renderRecent(); }catch(e){} }
-    function renderRecent(){ const list=JSON.parse(localStorage.getItem('focus_recent')||'[]'); const container=document.getElementById('recent'); if(!list.length){ container.innerHTML='<div class="small">No recent study links yet.</div>'; return } container.innerHTML=list.map(i=>`<div style="margin-bottom:6px"><a href="${i.url}" target="_blank" style="color:var(--accent);text-decoration:none">${i.url.replace(/https?:\/\//,'')}</a></div>`).join(''); }
-    renderRecent();
-
-    // ---------- Pomodoro (stable) ----------
-    let baseWork = 25*60; let baseBreak = 5*60; let timerSec = baseWork; let timerInterval=null; let mode='work';
-    const display = document.getElementById('timerDisplay'); const modeLabel = document.getElementById('timerMode');
-    function formatTime(s){ const m=Math.floor(s/60); const ss=s%60; return `${String(m).padStart(2,'0')}:${String(ss).padStart(2,'0')}` }
-    function tick(){ if(timerSec<=0){ if(mode==='work'){ mode='break'; timerSec = baseBreak; modeLabel.textContent='Break'; notify('Break time','Take 5 minutes'); } else { mode='work'; timerSec = baseWork; modeLabel.textContent='Work'; notify('Work time','Start focused session'); } } timerSec--; display.textContent = formatTime(timerSec); }
-    document.getElementById('startBtn').addEventListener('click', ()=>{ if('Notification' in window && Notification.permission!=='granted') Notification.requestPermission(); if(timerInterval) return; timerInterval = setInterval(tick,1000); });
-    document.getElementById('pauseBtn').addEventListener('click', ()=>{ if(timerInterval){ clearInterval(timerInterval); timerInterval=null } });
-    document.getElementById('stopBtn').addEventListener('click', ()=>{ if(timerInterval){ clearInterval(timerInterval); timerInterval=null } mode='work'; timerSec = baseWork; modeLabel.textContent='Work'; display.textContent = formatTime(timerSec); });
-    document.getElementById('skipBtn').addEventListener('click', ()=>{ if(timerInterval){ clearInterval(timerInterval); timerInterval=null } if(mode==='work'){ mode='break'; timerSec=baseBreak; } else { mode='work'; timerSec=baseWork; } display.textContent = formatTime(timerSec); modeLabel.textContent = mode==='work' ? 'Work' : 'Break'; });
-    function notify(title, body){ try{ if('Notification' in window && Notification.permission==='granted'){ new Notification(title, {body: body}); } }catch(e){} }
-    display.textContent = formatTime(timerSec);
-
-    // ---------- Checklist ----------
-    const defaultTodos=['Physics — 1 hr','Chemistry — 1 hr','Math — 1 hr','Revision — 20 mins','Workout — 20 mins'];
-    function loadTodos(){ const todayKey=(new Date()).toISOString().slice(0,10)+'_todos'; let data=JSON.parse(localStorage.getItem(todayKey)||'null'); if(!data){ data=defaultTodos.map(t=>({text:t,done:false})); localStorage.setItem(todayKey, JSON.stringify(data)); } renderTodos(data); }
-    function renderTodos(data){ const wrap=document.getElementById('todoList'); wrap.innerHTML=''; data.forEach((item,idx)=>{ const label=document.createElement('label'); const chk=document.createElement('input'); chk.type='checkbox'; chk.checked=!!item.done; chk.addEventListener('change', ()=>{ item.done=chk.checked; saveTodos(data); }); label.appendChild(chk); const span=document.createElement('span'); span.textContent=' '+item.text; span.style.marginLeft='8px'; label.appendChild(span); wrap.appendChild(label); }); }
-    function saveTodos(data){ const todayKey=(new Date()).toISOString().slice(0,10)+'_todos'; localStorage.setItem(todayKey, JSON.stringify(data)); }
-    loadTodos();
-    document.getElementById('addTodo').addEventListener('click', ()=>{ const t=document.getElementById('newTodo').value.trim(); if(!t) return; const todayKey=(new Date()).toISOString().slice(0,10)+'_todos'; const data=JSON.parse(localStorage.getItem(todayKey)||'[]'); data.push({text:t,done:false}); localStorage.setItem(todayKey, JSON.stringify(data)); document.getElementById('newTodo').value=''; loadTodos(); });
-
-    // ---------- Notes ----------
-    const notesEl = document.getElementById('notes'); const notesKey='focus_notes'; notesEl.value = localStorage.getItem(notesKey) || '';
-    document.getElementById('saveNotes').addEventListener('click', ()=>{ localStorage.setItem(notesKey, notesEl.value); alert('Saved locally.'); });
-    document.getElementById('clearNotes').addEventListener('click', ()=>{ if(confirm('Clear notes?')){ notesEl.value=''; localStorage.removeItem(notesKey); } });
-
-    // ---------- Sticky Goals (editable & image upload) ----------
-    const defaultGoals = [
-      {id:'g1', title:'V-Taper Physique', note:'You want this? Then WORK for it.', img:'https://images.unsplash.com/photo-1554284126-aa88f22d6e6d?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=1'},
-      {id:'g2', title:'GT 650', note:'Dream hai? Scroll kam, grind zyada.', img:'https://images.unsplash.com/photo-1493238792000-8113da705763?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=2'},
-      {id:'g3', title:'BMW 7 Series', note:'Bhai ye khud aa kar driveway me ni ghusega.', img:'https://images.unsplash.com/photo-1542367597-3efa2f1ae6f9?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=3'},
-      {id:'g4', title:'Boards 98%', note:'Kal se padhunga bolke kitni baar bevakoof banega?', img:'https://images.unsplash.com/photo-1516979187457-637abb4f9353?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=4'}
-    ];
-    function loadGoals(){ const key='focus_goals_v2'; let data=JSON.parse(localStorage.getItem(key)||'null'); if(!data){ data=defaultGoals; localStorage.setItem(key, JSON.stringify(data)); } renderGoals(data); }
-    function renderGoals(list){ const container=document.getElementById('stickyContainer'); container.innerHTML=''; list.forEach(g=>{
-      const div=document.createElement('div'); div.className='sticky pulse'; div.dataset.id=g.id;
-      const img=document.createElement('img'); img.src=g.img; img.alt=g.title; img.addEventListener('click', ()=>{ const fileInput = document.createElement('input'); fileInput.type='file'; fileInput.accept='image/*'; fileInput.addEventListener('change',(ev)=>{ const f=ev.target.files[0]; if(!f) return; const reader=new FileReader(); reader.onload=function(e){ g.img=e.target.result; saveGoals(list); renderGoals(list); }; reader.readAsDataURL(f); }); fileInput.click(); });
-      const btn=document.createElement('button'); btn.className='edit-btn'; btn.innerHTML='✏️'; btn.title='Edit text'; btn.addEventListener('click', ()=>{ const newTitle = prompt('Edit title', g.title); if(newTitle!==null){ g.title=newTitle; } const newNote = prompt('Edit note', g.note); if(newNote!==null){ g.note=newNote; } saveGoals(list); renderGoals(list); });
-      const t=document.createElement('div'); t.className='title'; t.textContent=g.title;
-      const p=document.createElement('div'); p.className='note'; p.textContent=g.note;
-      div.appendChild(img); div.appendChild(btn); div.appendChild(t); div.appendChild(p);
-      container.appendChild(div);
-    }); }
-    function saveGoals(data){ localStorage.setItem('focus_goals_v2', JSON.stringify(data)); }
-    loadGoals();
-
-    // ---------- Countdown (Boards) ----------
-    const targetDate = new Date('2026-03-24T00:00:00'); document.getElementById('targetDateDisplay').textContent = targetDate.toDateString();
-    function updateCountdown(){ const now=new Date(); let diff = Math.max(0, Math.floor((targetDate - now)/1000)); const days=Math.floor(diff/86400); diff%=86400; const hrs=Math.floor(diff/3600); diff%=3600; const mins=Math.floor(diff/60); const secs=diff%60; document.getElementById('countdown').textContent = `${days}d ${hrs}h ${mins}m ${secs}s`; }
-    setInterval(updateCountdown,1000); updateCountdown();
-
-    // ---------- Idle Roast Mode (stable) ----------
-    const idleOverlay = document.getElementById('idleOverlay'); const insultText = document.getElementById('insultText'); const toggleRoast = document.getElementById('toggleRoast'); const idleSecondsDisplay = document.getElementById('idleSecondsDisplay'); const testRoast = document.getElementById('testRoast'); let idleSeconds = parseInt(localStorage.getItem('idle_seconds')||'90',10); idleSecondsDisplay.textContent = idleSeconds; let roastEnabled = (localStorage.getItem('roast_enabled')||'true')==='true'; toggleRoast.checked = roastEnabled;
-    const insults = ["You want luxury? Then stop scrolling and start grinding.","If exams gave out trophies for excuses, you'd still miss those too.","Dreams don't chase the lazy. Move your ass.","Looks like your future called — it wants you to focus.","You said 'tomorrow' so many times the word filed a complaint."];
-    let idleTimer = null; function resetIdle(){ if(idleTimer) clearTimeout(idleTimer); if(roastEnabled) idleTimer = setTimeout(showRoast, idleSeconds*1000); if(idleOverlay.style.display==='flex') idleOverlay.style.display='none'; }
-    function showRoast(){ const r = insults[Math.floor(Math.random()*insults.length)]; insultText.textContent = r; idleOverlay.style.display='flex'; try{ new Audio('https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg').play(); }catch(e){} }
-    document.addEventListener('mousemove', resetIdle); document.addEventListener('keydown', resetIdle); document.addEventListener('scroll', resetIdle); document.addEventListener('click', resetIdle);
-    toggleRoast.addEventListener('change', ()=>{ roastEnabled = toggleRoast.checked; localStorage.setItem('roast_enabled', roastEnabled); if(!roastEnabled){ if(idleTimer) clearTimeout(idleTimer); idleOverlay.style.display='none'; } else { resetIdle(); } });
-    document.getElementById('closeRoast').addEventListener('click', ()=>{ idleOverlay.style.display='none'; resetIdle(); }); testRoast.addEventListener('click', ()=>{ showRoast(); });
-    idleSecondsDisplay.addEventListener('dblclick', ()=>{ const v = prompt('Set idle seconds', String(idleSeconds)); if(v!==null){ const n = parseInt(v,10); if(!isNaN(n) && n>10){ idleSeconds = n; localStorage.setItem('idle_seconds', String(n)); idleSecondsDisplay.textContent = n; resetIdle(); } else alert('Enter a number > 10'); } });
-    resetIdle();
-
-    // ---------- Click tracking for recent ----------
-    document.body.addEventListener('click', e=>{ const a = e.target.closest('a'); if(a && a.href){ addRecent(a.href); } });
-
-    // ---------- Ensure notification permission request ----------
-    if('Notification' in window && Notification.permission !== 'granted'){ try{ Notification.requestPermission(); }catch(e){} }
-
-    // ---------- Save notes on unload ----------
-    window.addEventListener('beforeunload', ()=>{ localStorage.setItem('focus_notes', document.getElementById('notes').value); });
-
-    // ---------- initialize saved notes ----------
-    document.getElementById('notes').value = localStorage.getItem('focus_notes') || '';
-
-  </script>
+    <button id="addNoteBtn" onclick="addNote()">+ Add Sticky Note</button>
+</div>
+<script>
+/* CLOCK */
+setInterval(() => {
+    let now = new Date();
+    document.getElementById("clock").innerHTML =
+        now.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+}, 1000);
+/* COUNTDOWN – FULL (D/H/M/S) */
+function updateCountdown() {
+    let target = new Date("February 20, 2026 00:00:00").getTime();
+    let now = Date.now();
+    let diff = target - now;
+    if (diff < 0) {
+        document.getElementById("countdown").innerHTML = "Exam Day Arrived!";
+        return;
+    }
+    let d = Math.floor(diff / (1000*60*60*24));
+    let h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    let m = Math.floor((diff%(1000*60*60))/(1000*60));
+    let s = Math.floor((diff%(1000*60))/1000);
+    document.getElementById("countdown").innerHTML =
+        `Boards in <b>${d}</b> days <b>${h}</b> hrs <b>${m}</b> min <b>${s}</b> sec`;
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+/* POMODORO */
+let pomoSeconds = 25 * 60;
+let timer;
+function render() {
+    let m = Math.floor(pomoSeconds / 60);
+    let s = pomoSeconds % 60;
+    document.getElementById("pomoTime").innerHTML =
+        `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+function startPomodoro() {
+    clearInterval(timer);
+    timer = setInterval(() => {
+        if (pomoSeconds > 0) {
+            pomoSeconds--;
+            render();
+        }
+    }, 1000);
+}
+function resetPomodoro() {
+    clearInterval(timer);
+    pomoSeconds = 25 * 60;
+    render();
+}
+render();
+/* STICKY NOTES – Now works */
+function addNote() {
+    let note = document.createElement("div");
+    note.className = "note";
+    note.contentEditable = true;
+    let colors = ["#ffeb3b", "#ff9800", "#ff5722", "#8bc34a", "#03a9f4", "#e91e63"];
+    note.style.background = colors[Math.floor(Math.random()*colors.length)];
+    note.style.left = (100 + Math.random()*200) + "px";
+    note.style.top = (120 + Math.random()*200) + "px";
+    note.onmousedown = drag;
+    document.body.appendChild(note);
+}
+function drag(e) {
+    let note = this;
+    let shiftX = e.clientX - note.offsetLeft;
+    let shiftY = e.clientY - note.offsetTop;
+    function move(e) {
+        note.style.left = (e.clientX - shiftX) + "px";
+        note.style.top = (e.clientY - shiftY) + "px";
+    }
+    document.addEventListener("mousemove", move);
+    document.addEventListener("mouseup", () => {
+        document.removeEventListener("mousemove", move);
+    }, {once:true});
+}
+</script>
 </body>
 </html>
