@@ -1,72 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Focus Dashboard</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #0f0f0f;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 20px;
+        :root{
+            --bg1:#0d1117;
+            --bg2:#0f1720;
+            --card:#0f1724;
+            --accent:#58a6ff;
+            --muted:#9aa5b1;
+            --glass: rgba(255,255,255,0.04);
         }
-        h1 {
-            margin-bottom: 20px;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #4fa3ff;
+        *{box-sizing:border-box}
+        body{
+            margin:0;
+            min-height:100vh;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+            background: linear-gradient(180deg,var(--bg1),var(--bg2));
+            color:#e6eef6;
+            display:flex;
+            align-items:flex-start;
+            justify-content:center;
+            padding:36px 18px;
         }
-        .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            width: 100%;
-            max-width: 1000px;
+        .wrap{width:100%;max-width:1000px}
+        header{
+            display:flex;gap:18px;align-items:center;justify-content:space-between;margin-bottom:18px
         }
-        .card {
-            background: #1a1a1a;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            transition: 0.3s;
-            border: 1px solid #333;
+        h1{margin:0;font-size:24px;color:var(--accent);letter-spacing:0.4px}
+        .meta{display:flex;gap:12px;align-items:center}
+        #clock{font-weight:600}
+        .notice{
+            background:linear-gradient(90deg, rgba(255,0,0,0.14), rgba(255,0,0,0.04));
+            color:#ffd6d6;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,0,0,0.08);
+            font-weight:600;margin-bottom:16px
         }
-        .card:hover {
-            transform: scale(1.05);
-            border-color: #4fa3ff;
-        }
-        a {
-            color: #4fa3ff;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 600;
+
+        .grid{display:grid;grid-template-columns:1fr 380px;gap:18px}
+        .panel{background:var(--card);padding:18px;border-radius:14px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 8px 40px rgba(2,6,23,0.6)}
+
+        /* Left content*/
+        .links-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+        .link{display:flex;gap:12px;align-items:center;padding:12px;border-radius:10px;background:var(--glass);text-decoration:none;color:inherit;border:1px solid rgba(255,255,255,0.03)}
+        .link i{width:28px;text-align:center;color:var(--accent)}
+        .link small{display:block;color:var(--muted);font-weight:600}
+
+        .big-buttons{display:flex;gap:12px;margin-bottom:14px}
+        .btn{flex:1;padding:12px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#3aa0ff);color:#031025;font-weight:700;text-align:center;cursor:pointer;box-shadow:0 6px 18px rgba(88,166,255,0.12);border:none}
+
+        /* Pomodoro */
+        .timer{display:flex;flex-direction:column;align-items:center;gap:8px}
+        .time-display{font-size:36px;font-weight:700}
+        .timer-controls{display:flex;gap:8px}
+        .control{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+
+        /* Checklist */
+        .todo{display:flex;flex-direction:column;gap:8px}
+        .todo label{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;background:rgba(255,255,255,0.02)}
+
+        /* Right column widgets */
+        .widget{margin-bottom:12px}
+        textarea{width:100%;min-height:100px;padding:10px;background:transparent;border:1px dashed rgba(255,255,255,0.05);color:inherit;border-radius:8px}
+        .small{font-size:13px;color:var(--muted)}
+
+        .playlists{display:flex;flex-direction:column;gap:8px}
+        .pl{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;background:rgba(255,255,255,0.02);text-decoration:none;color:inherit}
+
+        footer{margin-top:16px;text-align:center;color:var(--muted);font-size:13px}
+
+        @media(max-width:920px){.grid{grid-template-columns:1fr}
+            .meta{display:none}
         }
     </style>
 </head>
 <body>
-    <h1>📚 Focus Dashboard</h1>
-    <div class="container">
-        <div class="card"><a href="https://www.youtube.com/@AshuGhai11th12th" target="_blank">Ashu Ghai 11-12</a></div>
-        <div class="card"><a href="https://scienceandfun.live/" target="_blank">Science & Fun (Website)</a></div>
-        <div class="card"><a href="https://www.youtube.com/@codeitup" target="_blank">Code It Up</a></div>
-        <div class="card"><a href="https://www.youtube.com/@FarFromWeakFFW" target="_blank">Far From Weak FFW</a></div>
-        <div class="card"><a href="https://www.youtube.com/@Rewirs" target="_blank">Rewirs</a></div>
-        <div class="card"><a href="https://www.youtube.com/@scienceandfuneducation" target="_blank">Science & Fun Education</a></div>
-        <div class="card"><a href="https://www.youtube.com/@SelfUpp" target="_blank">Self Upp</a></div>
-        <div class="card"><a href="https://www.youtube.com/@DearSir" target="_blank">Dear Sir</a></div>
-        <div class="card"><a href="https://www.youtube.com/@NCERTWallahClass12PW" target="_blank">NCERT Wallah</a></div>
-        <div class="card"><a href="https://www.youtube.com/@AnabolicAliens" target="_blank">Anabolic Aliens</a></div>
+    <div class="wrap">
+        <header>
+            <div>
+                <h1>📚 Focus Dashboard</h1>
+                <div class="small">Clean minimal study homepage — open & get to work.</div>
+            </div>
 
-        <!-- New Playlists Added -->
-        <div class="card"><a href="https://youtube.com/playlist?list=PLjcFFdEpfDiVKUKSmePKM5R36KRiT_guB" target="_blank">Playlist 1</a></div>
-        <div class="card"><a href="https://youtube.com/playlist?list=PLjcFFdEpfDiW3sSJ8IN7byNguxrX08XGz" target="_blank">Playlist 2</a></div>
+            <div class="meta">
+                <div id="date" class="small"></div>
+                <div id="clock"></div>
+            </div>
+        </header>
 
-        <div class="card"><a href="https://www.youtube.com/results?search_query=next+workout" target="_blank">Next Workout Search</a></div>
+        <div class="notice">No-distraction mode: This page contains only approved study links. If you're not studying — close this tab.</div>
+
+        <div class="grid">
+            <div class="panel">
+
+                <div class="big-buttons">
+                    <button class="btn" data-action="ashu">Start JEE Physics</button>
+                    <button class="btn" data-action="chem">Start JEE Chemistry</button>
+                    <button class="btn" data-action="math">Start JEE Math</button>
+                </div>
+
+                <section style="margin-bottom:14px">
+                    <h3 style="margin:0 0 8px 0">Quick Study Links</h3>
+                    <div class="links-grid">
+                        <a class="link" href="https://www.youtube.com/@AshuGhai11th12th" target="_blank"><i class="fa-solid fa-book-open"></i><div><div>Ashu Ghai (11/12)</div><small>JEE / Board theory</small></div></a>
+
+                        <a class="link" href="https://scienceandfun.live/" target="_blank"><i class="fa-solid fa-flask"></i><div><div>Science & Fun</div><small>Concepts & demos</small></div></a>
+
+                        <a class="link" href="https://www.youtube.com/@codeitup" target="_blank"><i class="fa-solid fa-code"></i><div><div>Code It Up</div><small>Problem solving</small></div></a>
+
+                        <a class="link" href="https://www.youtube.com/@FarFromWeakFFW" target="_blank"><i class="fa-solid fa-dumbbell"></i><div><div>Far From Weak</div><small>Motivation + workouts</small></div></a>
+
+                        <a class="link" href="https://www.youtube.com/playlist?list=PLjcFFdEpfDiVKUKSmePKM5R36KRiT_guB" target="_blank"><i class="fa-solid fa-list"></i><div><div>Playlist 1</div><small>Curated study videos</small></div></a>
+
+                        <a class="link" href="https://www.youtube.com/playlist?list=PLjcFFdEpfDiW3sSJ8IN7byNguxrX08XGz" target="_blank"><i class="fa-solid fa-list"></i><div><div>Playlist 2</div><small>Curated study videos</small></div></a>
+
+                        <a class="link" href="https://www.youtube.com/results?search_query=next+workout" target="_blank"><i class="fa-solid fa-play"></i><div><div>Next Workout</div><small>Quick routines</small></div></a>
+                    </div>
+                </section>
+
+                <section style="margin-bottom:14px">
+                    <h3 style="margin:0 0 8px 0">Pomodoro Timer</h3>
+                    <div class="timer">
+                        <div class="time-display" id="timerDisplay">25:00</div>
+                        <div class="small">Mode: <span id="timerMode">Work</span></div>
+                        <div class="timer-controls">
+                            <button class="control" id="startBtn">Start</button>
+                            <button class="control" id="pauseBtn">Pause</button>
+                            <button class="control" id="stopBtn">Stop</button>
+                            <button class="control" id="skipBtn">Skip</button>
+                        </div>
+                        <div style="margin-top:8px" class="small">Auto-switches between 25/5 min. Use to protect deep focus.</div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3 style="margin:0 0 8px 0">Daily Checklist</h3>
+                    <div class="todo" id="todoList">
+                        <!-- items added by JS -->
+                    </div>
+                    <div style="margin-top:8px;display:flex;gap:8px">
+                        <input id="newTodo" placeholder="Add task (e.g. Physics 1 hr)" style="flex:1;padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:inherit">
+                        <button class="control" id="addTodo">Add</button>
+                    </div>
+                    <div class="small" style="margin-top:8px">Checklist auto-resets daily at midnight.</div>
+                </section>
+
+            </div>
+
+            <aside>
+                <div class="panel widget">
+                    <h4 style="margin:0 0 8px 0">Notes / Goals</h4>
+                    <textarea id="notes" placeholder="Today's target... (saved locally)"></textarea>
+                    <div style="display:flex;gap:8px;margin-top:8px">
+                        <button class="control" id="saveNotes">Save</button>
+                        <button class="control" id="clearNotes">Clear</button>
+                    </div>
+                </div>
+
+                <div class="panel widget">
+                    <h4 style="margin:0 0 8px 0">Study Playlists</h4>
+                    <div class="playlists">
+                        <a class="pl" href="https://www.youtube.com/@AshuGhai11th12th" target="_blank"><i class="fa-solid fa-youtube"></i> Ashu Ghai Channel</a>
+                        <a class="pl" href="https://www.youtube.com/playlist?list=PLjcFFdEpfDiVKUKSmePKM5R36KRiT_guB" target="_blank"><i class="fa-solid fa-list"></i> Playlist 1</a>
+                        <a class="pl" href="https://www.youtube.com/playlist?list=PLjcFFdEpfDiW3sSJ8IN7byNguxrX08XGz" target="_blank"><i class="fa-solid fa-list"></i> Playlist 2</a>
+                        <a class="pl" href="https://scienceandfun.live/" target="_blank"><i class="fa-solid fa-globe"></i> Science & Fun</a>
+                    </div>
+                </div>
+
+                <div class="panel widget">
+                    <h4 style="margin:0 0 8px 0">Recently opened (local)</h4>
+                    <div id="recent" class="small"></div>
+                </div>
+
+            </aside>
+        </div>
+
+        <footer>Made for focus — links open in new tab. Your data (notes, checklist) stay only on this device.</footer>
     </div>
+
+<script>
+// Clock & Date
+function updateClock(){
+    const now=new Date();
+    document.getElementById('clock').textContent = now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    document.getElementById('date').textContent = now.toLocaleDateString([], {weekday:'short', month:'short', day:'numeric'});
+}
+setInterval(updateClock,1000); updateClock();
+
+// Quick action buttons
+const quickMap = {
+    'ashu': 'https://www.youtube.com/playlist?list=PLjcFFdEpfDiVKUKSmePKM5R36KRiT_guB',
+    'chem': 'https://www.youtube.com/playlist?list=PLjcFFdEpfDiW3sSJ8IN7byNguxrX08XGz',
+    'math': 'https://www.youtube.com/@AshuGhai11th12th'
+};
+document.querySelectorAll('.btn').forEach(b=>b.addEventListener('click',()=>{
+    const link = quickMap[b.dataset.action];
+    if(link){ window.open(link,'_blank'); addRecent(link); }
+}));
+
+// Track recent links (localStorage)
+function addRecent(url){
+    try{
+        const list=JSON.parse(localStorage.getItem('focus_recent')||'[]');
+        list.unshift({url: url, t: Date.now()});
+        const uniq = Array.from(new Map(list.map(i=>[i.url,i])).values()).slice(0,6);
+        localStorage.setItem('focus_recent', JSON.stringify(uniq));
+        renderRecent();
+    }catch(e){console.error(e)}
+}
+function renderRecent(){
+    const list = JSON.parse(localStorage.getItem('focus_recent')||'[]');
+    const container = document.getElementById('recent');
+    if(!list.length){ container.innerHTML = '<div class="small">No recent study links yet.</div>'; return; }
+    container.innerHTML = list.map(i=>`<div style="margin-bottom:6px"><a href="${i.url}" target="_blank" style="color:var(--accent);text-decoration:none">${i.url.replace(/https?:\/\//,'')}</a></div>`).join('');
+}
+renderRecent();
+
+// Pomodoro Timer (simple)
+let timerSec = 25*60; let timerInterval=null; let mode='work';
+const display = document.getElementById('timerDisplay'); const modeLabel = document.getElementById('timerMode');
+function formatTime(s){ const m=Math.floor(s/60); const ss=s%60; return `${String(m).padStart(2,'0')}:${String(ss).padStart(2,'0')}` }
+function tick(){ if(timerSec<=0){
+    if(mode==='work'){ mode='break'; timerSec=5*60; modeLabel.textContent='Break'; new Notification('Break time','Take 5 minutes'); }
+    else{ mode='work'; timerSec=25*60; modeLabel.textContent='Work'; new Notification('Work time','Start focused session'); }
+}
+ timerSec--; display.textContent = formatTime(timerSec);
+}
+
+document.getElementById('startBtn').addEventListener('click', ()=>{
+    if(Notification && Notification.permission!=='granted') Notification.requestPermission();
+    if(timerInterval) return; timerInterval = setInterval(tick,1000);
+});
+document.getElementById('pauseBtn').addEventListener('click', ()=>{ if(timerInterval) { clearInterval(timerInterval); timerInterval=null } });
+document.getElementById('stopBtn').addEventListener('click', ()=>{ if(timerInterval) { clearInterval(timerInterval); timerInterval=null } timerSec = 25*60; mode='work'; modeLabel.textContent='Work'; display.textContent=formatTime(timerSec); });
+document.getElementById('skipBtn').addEventListener('click', ()=>{ if(timerInterval) clearInterval(timerInterval); timerInterval=null; if(mode==='work'){ mode='break'; timerSec=5*60; } else { mode='work'; timerSec=25*60; } display.textContent=formatTime(timerSec); modeLabel.textContent = mode==='work' ? 'Work' : 'Break'; });
+
+// Checklist (auto-reset daily)
+const defaultTodos = ['Physics — 1 hr','Chemistry — 1 hr','Math — 1 hr','Revision — 20 mins','Workout — 20 mins'];
+function loadTodos(){
+    const todayKey = (new Date()).toISOString().slice(0,10)+'_todos';
+    let data = JSON.parse(localStorage.getItem(todayKey) || 'null');
+    if(!data){ data = defaultTodos.map(t=>({text:t,done:false})); localStorage.setItem(todayKey, JSON.stringify(data)); }
+    renderTodos(data);
+}
+function renderTodos(data){
+    const wrap = document.getElementById('todoList'); wrap.innerHTML='';
+    data.forEach((item,idx)=>{
+        const id = 'td_'+idx;
+        const label = document.createElement('label');
+        const chk = document.createElement('input'); chk.type='checkbox'; chk.checked = !!item.done; chk.addEventListener('change', ()=>{ item.done = chk.checked; saveTodos(data); });
+        label.appendChild(chk);
+        const span = document.createElement('span'); span.textContent = ' ' + item.text; span.style.marginLeft='8px';
+        label.appendChild(span);
+        wrap.appendChild(label);
+    });
+}
+function saveTodos(data){ const todayKey = (new Date()).toISOString().slice(0,10)+'_todos'; localStorage.setItem(todayKey, JSON.stringify(data)); }
+loadTodos();
+
+document.getElementById('addTodo').addEventListener('click', ()=>{
+    const t = document.getElementById('newTodo').value.trim(); if(!t) return; const todayKey = (new Date()).toISOString().slice(0,10)+'_todos'; const data = JSON.parse(localStorage.getItem(todayKey) || '[]'); data.push({text:t,done:false}); localStorage.setItem(todayKey, JSON.stringify(data)); document.getElementById('newTodo').value=''; loadTodos();
+});
+
+// Notes
+const notesEl = document.getElementById('notes'); const notesKey = 'focus_notes';
+notesEl.value = localStorage.getItem(notesKey) || '';
+document.getElementById('saveNotes').addEventListener('click', ()=>{ localStorage.setItem(notesKey, notesEl.value); alert('Saved locally.'); });
+document.getElementById('clearNotes').addEventListener('click', ()=>{ if(confirm('Clear notes?')){ notesEl.value=''; localStorage.removeItem(notesKey); } });
+
+// Recently: clicking any link should add recent. Use event delegation
+document.body.addEventListener('click', e=>{
+    const a = e.target.closest('a'); if(a && a.href){ addRecent(a.href); }
+});
+
+// request notification permission if available
+if('Notification' in window && Notification.permission !== 'granted'){
+    try { Notification.requestPermission(); } catch(e){}
+}
+
+</script>
 </body>
 </html>
